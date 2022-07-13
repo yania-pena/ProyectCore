@@ -1,0 +1,68 @@
+{% extends 'vista/base.html' %} {% load static %} {% block js %}
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+{% endblock %} {% block css %}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"
+/>
+{% endblock %} {% block contenido %}
+
+<h2>Selecciona la preferencia de tus  Ejercicios</h2>
+
+        <form method="POST">
+          {% csrf_token %}
+  
+   <div>
+  
+    <h1>Que deseas hacer?</h1>
+  </div>
+
+<br>
+<div>
+  <input type="text" name="buscalo" placeholder="Escribe el ejercicio que desees encontrar..">
+   
+    <br><br>
+    
+  </div>
+   <br><br>
+<div>
+  <button class="btn btn-primary" type="submit">Enviar</button>
+
+</div>
+<br><br>
+
+<div>
+  {% if ejercicio %}
+    {% for ejercicio in ejercicios %}
+      <h1>Nombre Ejercicio: {{ejercicio.nombre}}</h1><br>
+      <h1>Tipo de Ejercicio: {{ejercicio.tipoEjercicio}}</h1><br>
+      <h1>Tiempo Ejecución: {{ejercicio.Duracion}}  /minutos</h1><br>
+      <h1>Repeticiones: {{ejercicio.Repeticiones}}</h1><br>
+    {% endfor%}
+    {% else %}
+      {% for dato in datos %}
+          {% for el,ejerci in dato.items %}
+              <h1>Tipo al que pertenece {{el.nombre}}</h1>
+               {% for e in ejerci %}
+                    <h1>Nombre Ejercicio: {{e.nombre}}</h1><br>
+                    <h1>Tipo de Ejercicio: {{e.tipoEjercicio}}</h1><br>
+                    <h1>Tiempo Ejecución: {{e.Duracion}} /minutos</h1><br>
+                    <h1>Repeticiones: {{e.Repeticiones}}</h1><br>
+               {% endfor%}
+          {% endfor%}
+      {% endfor%}
+  {% endif%}
+
+</div>
+
+    
+      </form>
+
+  
+
+
+
+{% endblock %}
+
+

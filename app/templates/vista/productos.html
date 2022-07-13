@@ -1,0 +1,45 @@
+{% extends 'vista/base.html' %} {% load static %} {% block js %}
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+<script>
+  $(document).ready(function () {
+    $(".slider").bxSlider({
+      mode: "fade", //horizontal, vertical, fade
+      auto: true,
+      pause: 2000,
+    });
+  });
+</script>
+{% endblock %} {% block css %}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"
+/>
+{% endblock %} {% block contenido %}
+
+<h2>Dietas</h2>
+<div class="dieta">
+  {% for d in dietas %}
+  <div class="dieta">
+    <div class="contenedor_dieta">
+        {% if d.imagen %}
+      <img
+        src="{{d.imagen.url}}"
+        alt="imagen producto"
+      />
+      {% endif %}
+      <div class="detalle">
+        <h5>{{d.user}}</h5>
+        <h2>{{d.nombre}}</h2>
+        <h3>{{d.tipoDieta }}</h3>
+        <h3>{{d.dietaMñn }}</h3>
+        <h3>{{d.dietaMedmañ }}</h3>
+        <h3>{{d.dietaTarde }}</h3>
+        <h3>{{d.dietaMedtar }}</h3>
+        <h3>{{d.dietaNoche }}</h3>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,1 @@
+web: gunicorn coreDietas.wsgi --log-file -

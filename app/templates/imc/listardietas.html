@@ -1,0 +1,74 @@
+{% extends 'vista/base.html' %} {% load static %} {% block js %}
+<script src="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.min.js"></script>
+
+{% endblock %} {% block css %}
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/bxslider/4.2.12/jquery.bxslider.css"
+/>
+{% endblock %} {% block contenido %}
+
+<h2>MI PROGRESO</h2>
+
+    <form method="POST">
+      {% csrf_token %}
+      
+
+      <h3>Desde:</h3>
+      <input type="date" name="from" placeholder="Escribe de que rango 1"> <br> <br>
+      <h3>Hasta:</h3>
+      <input type="date" name="to" placeholder="Escribe de que rango 2">
+      <br>
+      
+      <div>
+        <br>
+        <button class="btn btn-primary" type="Search">Buscar</button>
+      
+      </div>
+    
+      
+<!-- <input type="number" name="from" placeholder="Escribe de que rango 1"> <br> <br>
+<input type="number" name="to" placeholder="Escribe de que rango 2"> -->
+<br>
+
+<div>
+  <br>
+ 
+
+ 
+     <h1>TU PROMEDIO:</h1> <h3 color="red">{{avg.avg}}</h3>
+   
+
+</div>
+<br><br>
+<div class="dieta">
+
+  <table class="table table-dark" border="1">
+    <tr>
+        <th>Usuario</th>
+        <th>Tu IMC</th>
+        <th>Fecha</th>
+        <th>Estatura</th>
+        <th>Peso</th>
+
+    </tr>
+    
+    {% for to in data %}
+    <tr>
+        <td>{{to.user}}</td>
+        <td>{{to.imc}}</td>
+        <td>{{to.date}}</td>
+        <td>{{to.estatura}}</td>
+        <td>{{to.peso}}</td>
+      </tr>
+  {% endfor %}
+ 
+
+  </table>
+  
+</div>
+
+</form>
+
+
+{% endblock %}

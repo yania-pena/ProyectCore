@@ -1,0 +1,131 @@
+{% extends 'vista/base.html' %}
+{% block contenido %}
+
+
+<div class="container">
+    <div class="form-row">
+      <!-#########################Col1###############-->
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="tab-bmi">
+          <br><br>
+          <h3>IMC Calculator</h3>
+          <div class="tab">
+            <button  class="tablinks" onclick="openUnit(event, 'metric')">IMC x Metrica</button>
+            <!-- <button  class="tablinks" onclick="openUnit(event, 'imperial')">IMC x Imperial</button> -->
+          </div>
+  
+          <div class="tabcontent" id="metric">
+             <form method="post">
+               {% csrf_token %}
+               <div class="col-12">
+                 <label for="">Ingresa tu Peso: </label>
+                 <input type="text" name="weight-metric" class="form-control" required placeholder="Ingresa tu peso (kg)">
+               </div>
+  
+               <div class="col-12">
+                 <label for="">Ingresa tu Estatura: </label>
+                 <input type="text" name="height-metric" class="form-control" required placeholder="Ingresa tu estatura (mtrs)">
+               </div>
+               {% if request.user.is_authenticated %}
+               <div class="form-check my-5">
+                 <input class="form-check-input" checked="checked" name="save" value="on" type="checkbox">
+                 <label for="" class="form-check-label">Guardar Datos
+                   <a href="#" title="Why to save it?" data-toggle="popover" data-trigger="focus"
+           data-content="In case you want to track your weight, you can save it.(login required)">?</a>
+         </label>
+               </div>
+               {% else %}
+               <div class="form-check my-5">
+                 <input disabled class="form-check-input" checked="checked" name="save" value="on" type="checkbox">
+                 <label for="" class="form-check-label">Guardar Datos
+                   <a href="#" title="Why to save it?" data-toggle="popover" data-trigger="focus"
+           data-content="In case you want to track your weight, you can save it.(login required)">?</a>
+         </label>
+               </div>
+               {% endif %}
+  
+               <button type="submit" class="btn btn-primary" action="{% url 'home' %}">Calcular</button>
+  
+             </form>
+          </div>
+  
+          <!-- <div class="tabcontent" id="imperial">
+            <form method="post">
+              {% csrf_token %}
+              <div class="col-12">
+                <label for="">Ingresa tu Peso: </label>
+                <input type="text" name="weight-imperial" class="form-control" required placeholder="Ingresa tu peso (lbs)">
+              </div>
+  
+              <div class="col-12">
+                <label for="">Ingresa tu Estatura: </label>
+                <div class="input-group">
+                  <input type="text" name="feet" placeholder="Ingresa tu estatura (pies)" class="form-control">
+                  <input type="text" name="inches" placeholder="Ingresa tu estatura (plg)" class="form-control">
+                </div>
+              </div>
+  
+              {% if request.user.is_authenticated %}
+              <div class="form-check my-5">
+                <input class="form-check-input" checked="checked" name="save" value="on" type="checkbox">
+                <label for="" class="form-check-label">Guardar Datos.
+                  <a href="#" title="Why to save it?" data-toggle="popover" data-trigger="focus"
+          data-content="In case you want to track your weight, you can save it.(login required)">?</a>
+        </label>
+              </div>
+              {% else %}
+              <div class="form-check my-5">
+                <input disabled class="form-check-input" checked="checked" name="save" value="on" type="checkbox">
+                <label for="" class="form-check-label">Guardar Datos
+                  <a href="#" title="Why to save it?" data-toggle="popover" data-trigger="focus"
+          data-content="In case you want to track your weight, you can save it.(login required)">?</a>
+        </label>
+              </div>
+              {% endif %}
+  
+  
+  
+              <button type="submit" class="btn btn-primary" action="{% url 'home' %}">Calcular</button>
+  
+            </form>
+          </div> -->
+  
+  
+        </div>
+  
+  
+      <!-#########################Col2###############-->
+  
+  
+      </div>
+  
+  
+  
+        {% if imc %}
+      <div class="col-md-6 col-sm-12 col-xs-12">
+        <h2>Resultados</h2>
+        <h1>TU IMC = {{imc}} kg/m² | {{state}}</h1>
+        <div class="progress">
+          <div class="progress-bar bg-danger" style="width:25%">
+            Bajo de Peso
+          </div>
+          <div class="progress-bar bg-success" style="width:25%">
+            Normal
+          </div>
+          <div class="progress-bar bg-warning" style="width:25%">
+            Sobrepeso
+          </div>
+          <div class="progress-bar bg-danger" style="width:25%">
+            Obesidad
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+    <br><br>
+  
+    {{div| safe}}
+  </div>
+  
+
+{% endblock%}
